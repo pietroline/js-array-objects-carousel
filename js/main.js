@@ -26,3 +26,87 @@ const items = [
     }
 ];
 
+const itemsRef = document.getElementsByClassName('items')[0];
+const thumbsRef = document.getElementsByClassName('thumbs')[0];
+let item = '';
+let thumb = '';
+let active = 1;
+
+
+
+// -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+//il typeof della variabile items è oggetto
+//utilizzo sintassi del for per gli oggetti
+//mi riferisco alle opportune proprietà dell'oggetto tramite la sintassi "dot notation"
+
+for(let key in items){
+    item += `
+        <div class="item">
+            <img src="${items[key].photo}" alt="">
+            <div class="text">
+                <h3>${items[key].title}</h3>
+                <p>${items[key].text}</p>
+            </div>
+        </div>`
+    thumb += `
+        <div class="thumb">
+            <img src="${items[key].photo}" alt="">
+        </div>
+    `
+}
+
+
+
+
+
+// -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+itemsRef.innerHTML = item;
+document.getElementsByClassName('item')[active].classList.add('active');
+
+thumbsRef.innerHTML += thumb;
+document.getElementsByClassName('thumb')[active].classList.add('active');
+
+const prev = document.querySelector('.prev');
+prev.addEventListener('click', function() {
+    if(active == 0) {                                                                   
+        active = items.length - 1; 
+
+        document.querySelector('.item.active').classList.remove('active');
+        document.getElementsByClassName('item')[active].classList.add('active');
+
+        document.querySelector('.thumb.active').classList.remove('active');
+        document.getElementsByClassName('thumb')[active].classList.add('active');
+    } else if(active < items.length) {
+        --active
+        document.querySelector('.item.active').classList.remove('active');
+        document.getElementsByClassName('item')[active].classList.add('active');
+
+        document.querySelector('.thumb.active').classList.remove('active');
+        document.getElementsByClassName('thumb')[active].classList.add('active');
+    } 
+});
+
+const next = document.querySelector('.next');
+next.addEventListener('click', function() {
+    if(active < items.length - 1) {
+        ++active
+        document.querySelector('.item.active').classList.remove('active');
+        document.getElementsByClassName('item')[active].classList.add('active');
+
+        document.querySelector('.thumb.active').classList.remove('active');
+        document.getElementsByClassName('thumb')[active].classList.add('active');
+    } else if(active == items.length - 1) { 
+        active = 0;
+        document.querySelector('.item.active').classList.remove('active');
+        document.getElementsByClassName('item')[active].classList.add('active');
+
+        document.querySelector('.thumb.active').classList.remove('active');
+        document.getElementsByClassName('thumb')[active].classList.add('active');
+    }
+});
